@@ -149,9 +149,9 @@ alias skel '[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-ba
 alias bupskel 'cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)'
 
 #copy shell configs
-alias cb 'cp /etc/skel/.bashrc ~/.bashrc && echo "Done. Now log out."'
-alias cz 'cp /etc/skel/.zshrc ~/.zshrc && echo "Done. Now log out."'
-alias cf 'cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && echo "Done. Now log out."'
+alias cb 'cp /etc/skel/.bashrc ~/.bashrc && echo "Copied."'
+alias cz 'cp /etc/skel/.zshrc ~/.zshrc && echo "Copied."'
+alias cf 'cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && exec fish'
 
 #switch between bash, zsh and fish
 alias tobash 'sudo chsh $USER -s /bin/bash && echo "Done. Now log out."'
@@ -170,6 +170,8 @@ alias tolxdm 'sudo pacman -S lxdm --noconfirm --needed ; sudo systemctl enable l
 alias kc 'killall conky'
 # quickly kill polybar
 alias kp 'killall polybar'
+# quickly kill picom
+alias kpi killall picom
 
 #hardware info --short
 alias hw 'hwinfo --short'
