@@ -1,4 +1,14 @@
 ### EXPORT ###
+export EDITOR='nano'
+export VISUAL='nano'
+
+#Ibus settings if you need them
+#type ibus-setup in terminal to change settings and start the daemon
+#delete the hashtags of the next lines and restart
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=@im=dbus
+#export QT_IM_MODULE=ibus
+
 set fish_greeting          # Suppresses fish's intro message
 set TERM "xterm-256color"  # Sets the terminal type for proper colors
 #set fish_escape_delay_ms 500
@@ -10,6 +20,10 @@ if status is-interactive
 end
 if status --is-login
     set -gx PATH $PATH ~/.bin
+end
+
+if status --is-login
+    set -gx PATH $PATH ~/.local/bin
 end
 
 ### COLORS ###
@@ -50,15 +64,12 @@ end
 
 ### FUNCTIONS ###
 # recently installed packages
-function rip --argument length -d "List the last n (100) packages installed"
+function ripp --argument length -d "List the last n (100) packages installed"
     if test -z $length
         set length 100
     end
     expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n $length | nl
 end
-
-export EDITOR='nano'
-export VISUAL='nano'
 
 ### ALIASES ###
 
@@ -79,7 +90,7 @@ alias updqte 'sudo pacman -Syyu'
 alias upqll 'paru -Syu --noconfirm'
 alias upal 'paru -Syu --noconfirm'
 
-# colorize grep output (good for log files)
+## Colorize the grep command output for ease of use (good for log files)##
 alias grep 'grep --color=auto'
 alias egrep 'egrep --color=auto'
 alias fgrep 'fgrep --color=auto'
@@ -137,15 +148,15 @@ alias skel '[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-ba
 #backup contents of /etc/skel to hidden backup folder in home/user
 alias bupskel 'cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)'
 
-#copy bashrc-latest over on bashrc - cb= copy bashrc
-alias cb 'sudo cp /etc/skel/.bashrc ~/.bashrc && source ~/.bashrc'
-#copy /etc/skel/.zshrc over on ~/.zshrc - cb= copy zshrc
-#alias cz 'sudo cp /etc/skel/.zshrc ~/.zshrc && exec zsh'
+#copy shell configs
+alias cb 'cp /etc/skel/.bashrc ~/.bashrc && echo "Done. Now log out."'
+alias cz 'cp /etc/skel/.zshrc ~/.zshrc && echo "Done. Now log out."'
+alias cf 'cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && echo "Done.Now log out."'
 
 #switch between bash, zsh and fish
-alias tobash 'sudo chsh $USER -s /bin/bash && echo "Now log out."'
-alias tozsh 'sudo chsh $USER -s /bin/zsh && echo "Now log out."'
-alias tofish 'sudo chsh $USER -s /bin/fish && echo "Now log out."'
+alias tobash 'sudo chsh $USER -s /bin/bash && echo "Done. Now log out."'
+alias tozsh 'sudo chsh $USER -s /bin/zsh && echo "Done. Now log out."'
+alias tofish 'sudo chsh $USER -s /bin/fish && echo "Done. Now log out."'
 
 #switch between lightdm and sddm
 alias tolightdm 'sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo "Lightm is active - reboot now"'
@@ -188,9 +199,6 @@ alias vbm 'sudo /usr/local/bin/arcolinux-vbox-share'
 alias start-vmware 'sudo systemctl enable --now vmtoolsd.service'
 alias sv 'sudo systemctl enable --now vmtoolsd.service'
 
-
-alias xls 'exa -a --icons --color=always --group-directories-first'
-alias xll 'exa -lag --icons --color=always --group-directories-first --octal-permissions'
 
 #youtube download
 alias yta-aac 'yt-dlp --extract-audio --audio-format aac '
@@ -328,5 +336,3 @@ sfetch
 #sysinfo-retro
 #cpufetch
 #colorscript random
-
-
