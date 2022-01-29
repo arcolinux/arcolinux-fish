@@ -171,7 +171,7 @@ alias kc 'killall conky'
 # quickly kill polybar
 alias kp 'killall polybar'
 # quickly kill picom
-alias kpi killall picom
+alias kpi 'killall picom'
 
 #hardware info --short
 alias hw 'hwinfo --short'
