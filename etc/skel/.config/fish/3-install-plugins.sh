@@ -12,6 +12,7 @@
 ##################################################################################################################
 
 omf install https://github.com/IlanCosman/tide.git
-omf install git-flow
 omf install fzf
 omf install colored-man-pages
+omf install gitstatus
+omf install pj
