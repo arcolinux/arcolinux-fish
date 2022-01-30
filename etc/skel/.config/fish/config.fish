@@ -1,23 +1,57 @@
-### EXPORT ###
-export EDITOR='nano'
-export VISUAL='nano'
+# https://github.com/jorgebucaran/cookbook.fish
+
+# Plugins
+# https://github.com/jorgebucaran/fisher
+# https://github.com/jethrokuan/fzf
+# https://github.com/IlanCosman/tide
+# https://github.com/jhillyerd/plugin-git
+
+if not status --is-interactive
+  exit
+end
+
+# reload fish config
+function reload
+    source $HOME/.config/fish/config.fish
+    set -l config (status -f)
+    echo "reloading: $config"
+end
+
+# Load private config
+if [ -f $HOME/.config/fish/private.fish ]
+    source $HOME/.config/fish/private.fish
+end
+
+# Git
+if [ -f $HOME/.config/fish/git.fish ]
+    source $HOME/.config/fish/git.fish
+end
+
+# Aliases
+if [ -f $HOME/.config/fish/alias.fish ]
+    source $HOME/.config/fish/alias.fish
+end
+
+#set PS1 '[\u@\h \W]\$ '
+
+set -x EDITOR nano
+set -x VISUAL nano
+
+# Suppresses fish's intro message
+set fish_greeting          
+# Sets the terminal type for proper colors
+set TERM "xterm-256color"
+# Prevent directories names from being shortened
+set fish_prompt_pwd_dir_length 0
+set -x FZF_DEFAULT_OPTS '--color=16,header:13,info:5,pointer:3,marker:9,spinner:1,prompt:5,fg:7,hl:14,fg+:3,hl+:9 --inline-info --tiebreak=end,length --bind=shift-tab:toggle-down,tab:toggle-up'
 
 #Ibus settings if you need them
 #type ibus-setup in terminal to change settings and start the daemon
 #delete the hashtags of the next lines and restart
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=dbus
-#export QT_IM_MODULE=ibus
+#set GTK_IM_MODULE ibus
+#set XMODIFIERS @im=dbus
+#set QT_IM_MODULE ibus
 
-set fish_greeting          # Suppresses fish's intro message
-set TERM "xterm-256color"  # Sets the terminal type for proper colors
-#set fish_escape_delay_ms 500
-
-set PS1 '[\u@\h \W]\$ '
-
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
 if status --is-login
     set -gx PATH $PATH ~/.bin
 end
@@ -26,49 +60,90 @@ if status --is-login
     set -gx PATH $PATH ~/.local/bin
 end
 
-### COLORS ###
-if type -t set_colors > /dev/null 2>&1
-    ### load colors from flavours
-    set_colors
-else
-    # Base16 Gruvbox dark, medium defaults
-    set fish_color_autosuggestion "#665c54"
-    set fish_color_cancel -r
-    set fish_color_command "#83a598"
-    set fish_color_comment "#504945"
-    set fish_color_cwd green
-    set fish_color_cwd_root red
-    set fish_color_end "#8ec07c"
-    set fish_color_error "#fb4934"
-    set fish_color_escape "#fe8019"
-    set fish_color_history_current --bold
-    set fish_color_host normal
-    set fish_color_host_remote yellow
-    set fish_color_match --background=brblue
-    set fish_color_normal normal
-    set fish_color_operator "#fe8019"
-    set fish_color_param "#ebdbb2"
-    set fish_color_quote "#b8bb26"
-    set fish_color_redirection "#d3869b"
-    set fish_color_search_match bryellow --background=brblack
-    set fish_color_selection white --bold --background=brblack
-    set fish_color_status red
-    set fish_color_user brgreen
-    set fish_color_valid_path --underline
-    set fish_pager_color_completion normal
-    set fish_pager_color_description "#8ec07c" yellow
-    set fish_pager_color_prefix white --bold --underline
-    set fish_pager_color_progress brwhite --background=cyan
+if type -q bat
+    alias cat 'bat --paging=never'
 end
-### END OF COLORS ###
+
+if type -q exa
+    alias ls exa
+end
+
+if command -sq fzf && type -q fzf_configure_bindings
+  fzf_configure_bindings --directory=\ct
+end
+
+if not set -q -g fish_user_abbreviations
+  set -gx fish_user_abbreviations
+end
+
+if type -f fortune >/dev/null
+  set -l fortune "fortune -a"
+  if type -f lolcat >/dev/null
+    set fortune "$fortune | lolcat"
+  end
+  eval $fortune
+  echo
+end
+
+if which tree >/dev/null
+    function l1;  tree --dirsfirst -ChFL 1 $argv; end
+    function l2;  tree --dirsfirst -ChFL 2 $argv; end
+    function l3;  tree --dirsfirst -ChFL 3 $argv; end
+    function ll1; tree --dirsfirst -ChFupDaL 1 $argv; end
+    function ll2; tree --dirsfirst -ChFupDaL 2 $argv; end
+    function ll3; tree --dirsfirst -ChFupDaL 3 $argv; end
+end
+
+if type -q direnv
+    eval (direnv hook fish)
+end
+
+
 
 ### FUNCTIONS ###
+
 # recently installed packages
 function ripp --argument length -d "List the last n (100) packages installed"
     if test -z $length
         set length 100
     end
     expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n $length | nl
+end
+
+function gl
+    git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $argv | fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` --bind "ctrl-m:execute: echo '{}' | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R'"
+end
+
+function ex --description "Expand or extract bundled & compressed files"
+    set --local ext (echo $argv[1] | awk -F. '{print $NF}')
+    switch $ext
+        case tar # non-compressed, just bundled
+            tar -xvf $argv[1]
+        case gz
+            if test (echo $argv[1] | awk -F. '{print $(NF-1)}') = tar # tar bundle compressed with gzip
+                tar -zxvf $argv[1]
+            else # single gzip
+                gunzip $argv[1]
+            end
+        case tgz # same as tar.gz
+            tar -zxvf $argv[1]
+        case bz2 # tar compressed with bzip2
+            tar -jxvf $argv[1]
+        case rar
+            unrar x $argv[1]
+        case zip
+            unzip $argv[1]
+        case '*'
+            echo "unknown extension"
+    end
+end
+
+function less
+    command less -R $argv
+end
+
+function cd 
+    builtin cd $argv; and ls
 end
 
 ### ALIASES ###
@@ -144,7 +219,11 @@ alias update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias update-fc 'sudo fc-cache -fv'
 
 #copy/paste all content of /etc/skel over to home folder - backup of config created - beware
-alias skel '[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-backup-(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
+function skel
+    [ -d ~/.config ] || mkdir ~/.config
+    cp -Rf ~/.config ~/.config-backup-(date +%Y.%m.%d-%H.%M.%S)
+    cp -rf /etc/skel/ ~
+end
 #backup contents of /etc/skel to hidden backup folder in home/user
 alias bupskel 'cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)'
 
@@ -318,10 +397,28 @@ alias rmgitcache 'rm -r ~/.cache/git'
 #moving your personal files and folders from /personal to ~
 alias personal 'cp -Rf /personal/* ~'
 
-#create a file called ~/.config/fish/config-personal.fish and put all your personal aliases
-#in there. They will not be overwritten by skel.
-
-#[[ -f ~/.config/fish/config-personal.fish]] && . ~/.config/fish/config-personal.fish
+# git
+alias g git
+alias ga "git add"
+alias gb "git branch"
+alias gba "git branch -a"
+alias gbd "git branch -D"
+alias gca "git commit -a -m"
+alias gcm "git commit -m"
+alias gco "git checkout"
+alias gcob "git checkout -b"
+alias gcp "git cherry-pick"
+alias gd "git diff"
+alias gdc "git diff --cached"
+alias gl "git lg"
+alias gm "git merge --no-ff"
+alias gp "git push"
+alias gpom "git pull origin master"
+alias gpt "git push --tags"
+alias grh "git reset --hard"
+alias grs "git reset --soft"
+alias gst "git status -sb --ignore-submodules"
+alias undopush "git push -f origin HEAD^:master"
 
 # reporting tools - install when not installed
 #neofetch
