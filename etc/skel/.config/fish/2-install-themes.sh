@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/fish
 #
 ##################################################################################################################
 # Written to be used on 64 bits computers
@@ -14,4 +14,3 @@
 omf install bobthefish
 omf install bira
 omf install dangerous
-omf install johanson

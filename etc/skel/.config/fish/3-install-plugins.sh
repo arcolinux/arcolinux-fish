@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/fish
 #
 ##################################################################################################################
 # Written to be used on 64 bits computers
@@ -11,7 +11,7 @@
 #
 ##################################################################################################################
 
-omf install tide
+omf install https://github.com/IlanCosman/tide.git
 omf install git-flow
 omf install fzf
 omf install colored-man-pages
