@@ -1,10 +1,18 @@
+# https://fishshell.com/docs/current/index.html
 # https://github.com/jorgebucaran/cookbook.fish
 
+# themes
+# https://github.com/oh-my-fish/oh-my-fish/blob/master/docs/Themes.md
+
 # Plugins
-# https://github.com/jorgebucaran/fisher
 # https://github.com/jethrokuan/fzf
 # https://github.com/IlanCosman/tide
 # https://github.com/jhillyerd/plugin-git
+
+# tools
+# https://github.com/jorgebucaran/fisher
+# https://github.com/oh-my-fish/oh-my-fish
+# https://github.com/danhper/fundle
 
 if not status --is-interactive
   exit
@@ -32,18 +40,28 @@ if [ -f $HOME/.config/fish/alias.fish ]
     source $HOME/.config/fish/alias.fish
 end
 
+# Starship prompt
+if command -sq starship
+    starship init fish | source
+end
+
 #set PS1 '[\u@\h \W]\$ '
 
 set -x EDITOR nano
 set -x VISUAL nano
 
 # Suppresses fish's intro message
-set fish_greeting          
+set fish_greeting
+#function fish_greeting
+#    fish_logo
+#end
 # Sets the terminal type for proper colors
 set TERM "xterm-256color"
 # Prevent directories names from being shortened
 set fish_prompt_pwd_dir_length 0
 set -x FZF_DEFAULT_OPTS '--color=16,header:13,info:5,pointer:3,marker:9,spinner:1,prompt:5,fg:7,hl:14,fg+:3,hl+:9 --inline-info --tiebreak=end,length --bind=shift-tab:toggle-down,tab:toggle-up'
+# "bat" as manpager
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 #Ibus settings if you need them
 #type ibus-setup in terminal to change settings and start the daemon
@@ -142,7 +160,7 @@ function less
     command less -R $argv
 end
 
-function cd 
+function cd
     builtin cd $argv; and ls
 end
 
@@ -154,6 +172,9 @@ alias la 'ls -a'
 alias ll 'ls -alFh'
 alias l 'ls'
 alias l. "ls -A | egrep '^\.'"
+
+alias xls 'exa -a --icons --color=always --group-directories-first'
+alias xll 'exa -lag --icons --color=always --group-directories-first --octal-permissions'
 
 #fix obvious typo's
 alias cd.. 'cd ..'
@@ -398,26 +419,6 @@ alias rmgitcache 'rm -r ~/.cache/git'
 alias personal 'cp -Rf /personal/* ~'
 
 # git
-alias g git
-alias ga "git add"
-alias gb "git branch"
-alias gba "git branch -a"
-alias gbd "git branch -D"
-alias gca "git commit -a -m"
-alias gcm "git commit -m"
-alias gco "git checkout"
-alias gcob "git checkout -b"
-alias gcp "git cherry-pick"
-alias gd "git diff"
-alias gdc "git diff --cached"
-alias gl "git lg"
-alias gm "git merge --no-ff"
-alias gp "git push"
-alias gpom "git pull origin master"
-alias gpt "git push --tags"
-alias grh "git reset --hard"
-alias grs "git reset --soft"
-alias gst "git status -sb --ignore-submodules"
 alias undopush "git push -f origin HEAD^:master"
 
 # reporting tools - install when not installed
@@ -427,9 +428,9 @@ alias undopush "git push -f origin HEAD^:master"
 #paleofetch
 #fetch
 #hfetch
-sfetch
+#sfetch
 #ufetch
-#ufetch-arco
+ufetch-arco | lolcat
 #pfetch
 #sysinfo
 #sysinfo-retro

@@ -16,3 +16,5 @@ omf install fzf
 omf install colored-man-pages
 omf install gitstatus
 omf install pj
+
+fish_update_completions
