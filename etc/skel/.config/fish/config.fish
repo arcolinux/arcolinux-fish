@@ -6,7 +6,7 @@
 
 # Plugins
 # https://github.com/jethrokuan/fzf
-# https://github.com/IlanCosman/tide
+# https://github.com/IlanCosman/tide.git - fisher install IlanCosman/tide@v5
 # https://github.com/jhillyerd/plugin-git
 
 # tools

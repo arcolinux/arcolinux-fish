@@ -11,12 +11,20 @@
 #
 ##################################################################################################################
 
-# fisher install IlanCosman/tide@v5
+omf remove https://github.com/IlanCosman/tide.git
+omf remove fzf
+omf remove colored-man-pages
+omf remove gitstatus
+omf remove pj
+omf remove fish_logo
+omf remove git
+omf remove omf
 
-#omf install https://github.com/IlanCosman/tide.git
-omf install fzf
-omf install colored-man-pages
-omf install gitstatus
-omf install pj
+rm -rf ~/.config/omf
+rm -rf ~/.local/share/fish
+rm -rf ~/.local/share/omf
+rm -rf ~/.cache/omf
 
-fish_update_completions
+
+# as last one
+rm -r ~/.config/fish
