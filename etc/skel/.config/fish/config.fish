@@ -41,9 +41,9 @@ if [ -f $HOME/.config/fish/alias.fish ]
 end
 
 # Starship prompt
-if command -sq starship
-    starship init fish | source
-end
+#if command -sq starship
+#    starship init fish | source
+#end
 
 #set PS1 '[\u@\h \W]\$ '
 

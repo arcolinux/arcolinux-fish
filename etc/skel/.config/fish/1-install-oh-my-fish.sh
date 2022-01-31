@@ -11,4 +11,9 @@
 #
 ##################################################################################################################
 
+echo "Change first to fish after installing fish"
+echo "sudo pacman -S fish"
+echo "tofish"
+echo "is the alias to change to fish and then logout"
+echo
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
