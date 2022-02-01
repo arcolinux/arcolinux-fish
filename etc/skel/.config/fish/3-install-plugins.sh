@@ -13,6 +13,7 @@
 
 # fisher install IlanCosman/tide@v5
 
+omf install https://github.com/jhillyerd/plugin-git
 omf install https://github.com/IlanCosman/tide.git
 omf install fzf
 omf install colored-man-pages

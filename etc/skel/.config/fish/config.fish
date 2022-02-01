@@ -18,13 +18,6 @@ if not status --is-interactive
   exit
 end
 
-# reload fish config
-function reload
-    source $HOME/.config/fish/config.fish
-    set -l config (status -f)
-    echo "reloading: $config"
-end
-
 # Load private config
 if [ -f $HOME/.config/fish/private.fish ]
     source $HOME/.config/fish/private.fish
@@ -40,6 +33,17 @@ if [ -f $HOME/.config/fish/alias.fish ]
     source $HOME/.config/fish/alias.fish
 end
 
+# reload fish config
+function reload
+    source $HOME/.config/fish/config.fish
+    set -l config (status -f)
+    echo "reloading: $config"
+end
+
+# User paths
+set -e fish_user_paths
+set -U fish_user_paths $HOME/.bin $HOME/.local/bin $HOME/Applications $fish_user_paths
+
 # Starship prompt
 #if command -sq starship
 #    starship init fish | source
@@ -47,8 +51,10 @@ end
 
 #set PS1 '[\u@\h \W]\$ '
 
+# sets tools
 set -x EDITOR nano
 set -x VISUAL nano
+set -x TERM alacritty
 
 # Suppresses fish's intro message
 set fish_greeting
@@ -132,28 +138,43 @@ function gl
     git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $argv | fzf --ansi --no-sort --reverse --tiebreak=index --toggle-sort=\` --bind "ctrl-m:execute: echo '{}' | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R'"
 end
 
-function ex --description "Expand or extract bundled & compressed files"
-    set --local ext (echo $argv[1] | awk -F. '{print $NF}')
-    switch $ext
-        case tar # non-compressed, just bundled
-            tar -xvf $argv[1]
-        case gz
-            if test (echo $argv[1] | awk -F. '{print $(NF-1)}') = tar # tar bundle compressed with gzip
-                tar -zxvf $argv[1]
-            else # single gzip
+function ex --description "Extract bundled & compressed files"
+    if test -f "$argv[1]"
+        switch $argv[1]
+            case '*.tar.bz2'
+                tar xjf $argv[1]
+            case '*.tar.gz'
+                tar xzf $argv[1]
+            case '*.bz2'
+                bunzip2 $argv[1]
+            case '*.rar'
+                unrar $argv[1]
+            case '*.gz'
                 gunzip $argv[1]
-            end
-        case tgz # same as tar.gz
-            tar -zxvf $argv[1]
-        case bz2 # tar compressed with bzip2
-            tar -jxvf $argv[1]
-        case rar
-            unrar x $argv[1]
-        case zip
-            unzip $argv[1]
-        case '*'
-            echo "unknown extension"
-    end
+            case '*.tar'
+                tar xf $argv[1]
+            case '*.tbz2'
+                tar xjf $argv[1]
+            case '*.tgz'
+                tar xzf $argv[1]
+            case '*.zip'
+                unzip $argv[1]
+            case '*.Z'
+                uncompress $argv[1]
+            case '*.7z'
+                7z $argv[1]
+            case '*.deb'
+                ar $argv[1]
+            case '*.tar.xz'
+                tar xf $argv[1]
+            case '*.tar.zst'
+                tar xf $argv[1]
+            case '*'
+                echo "'$argv[1]' cannot be extracted via ex"
+        end
+   else
+       echo "'$argv[1]' is not a valid file"
+   end
 end
 
 function less
@@ -419,6 +440,8 @@ alias rmgitcache 'rm -r ~/.cache/git'
 alias personal 'cp -Rf /personal/* ~'
 
 # git
+# using plugin
+# omf install https://github.com/jhillyerd/plugin-git
 alias undopush "git push -f origin HEAD^:master"
 
 # reporting tools - install when not installed
