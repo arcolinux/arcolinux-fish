@@ -265,6 +265,7 @@ function skel
     [ -d ~/.config ] || mkdir ~/.config
     cp -Rf ~/.config ~/.config-backup-(date +%Y.%m.%d-%H.%M.%S)
     cp -rf /etc/skel/ ~
+    cp -rf /etc/skel/.* ~
 end
 #backup contents of /etc/skel to hidden backup folder in home/user
 alias bupskel 'cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)'
