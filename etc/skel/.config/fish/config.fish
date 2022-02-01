@@ -459,7 +459,7 @@ ufetch-arco | lolcat
 
 set fish_color_autosuggestion "#969896"
 set fish_color_cancel -r
-set fish_color_command "#83a598"
+set fish_color_command "#0782DE"
 set fish_color_comment "#f0c674"
 set fish_color_cwd "#008000"
 set fish_color_cwd_root red
