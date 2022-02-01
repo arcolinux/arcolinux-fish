@@ -35,7 +35,7 @@ end
 
 # reload fish config
 function reload
-    source $HOME/.config/fish/config.fish
+    exec fish
     set -l config (status -f)
     echo "reloading: $config"
 end
