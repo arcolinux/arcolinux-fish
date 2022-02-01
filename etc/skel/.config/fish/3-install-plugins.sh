@@ -15,10 +15,13 @@
 
 omf install https://github.com/jhillyerd/plugin-git
 omf install https://github.com/IlanCosman/tide.git
+omf install https://github.com/h-matsuo/fish-color-scheme-switcher
 omf install fzf
 omf install colored-man-pages
 omf install gitstatus
 omf install pj
+
+omf reload
 
 fish_update_completions
 

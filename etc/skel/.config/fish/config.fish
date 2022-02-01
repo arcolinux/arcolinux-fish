@@ -68,13 +68,8 @@ set fish_prompt_pwd_dir_length 0
 set -x FZF_DEFAULT_OPTS '--color=16,header:13,info:5,pointer:3,marker:9,spinner:1,prompt:5,fg:7,hl:14,fg+:3,hl+:9 --inline-info --tiebreak=end,length --bind=shift-tab:toggle-down,tab:toggle-up'
 # "bat" as manpager
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -g theme_nerd_fonts yes
 
-#Ibus settings if you need them
-#type ibus-setup in terminal to change settings and start the daemon
-#delete the hashtags of the next lines and restart
-#set GTK_IM_MODULE ibus
-#set XMODIFIERS @im=dbus
-#set QT_IM_MODULE ibus
 
 if status --is-login
     set -gx PATH $PATH ~/.bin
@@ -90,6 +85,8 @@ end
 
 if type -q exa
     alias ls exa
+    alias xls 'exa -a --icons --color=always --group-directories-first'
+    alias xll 'exa -lag --icons --color=always --group-directories-first --octal-permissions'
 end
 
 if command -sq fzf && type -q fzf_configure_bindings
@@ -193,9 +190,6 @@ alias la 'ls -a'
 alias ll 'ls -alFh'
 alias l 'ls'
 alias l. "ls -A | egrep '^\.'"
-
-alias xls 'exa -a --icons --color=always --group-directories-first'
-alias xll 'exa -lag --icons --color=always --group-directories-first --octal-permissions'
 
 #fix obvious typo's
 alias cd.. 'cd ..'
@@ -394,7 +388,7 @@ alias fix-pacman-conf '/usr/local/bin/arcolinux-fix-pacman-conf'
 alias fix-pacman-keyserver '/usr/local/bin/arcolinux-fix-pacman-gpg-conf'
 
 #maintenance
-alias big 'expac -H M '%m\t%n' | sort -h | nl'
+alias big 'expac -H M "%m\t%n" | sort -h | nl'
 alias downgrada 'sudo downgrade --ala-url https://ant.seedhost.eu/arcolinux/'
 
 #hblock (stop tracking with hblock)
@@ -460,3 +454,33 @@ ufetch-arco | lolcat
 #sysinfo-retro
 #cpufetch
 #colorscript random
+
+# colors to set or unset
+
+set fish_color_autosuggestion "#665c54"
+set fish_color_cancel -r
+set fish_color_command "#83a598"
+set fish_color_comment "#504945"
+set fish_color_cwd green
+set fish_color_cwd_root red
+set fish_color_end "#8ec07c"
+set fish_color_error "#fb4934"
+set fish_color_escape "#fe8019"
+set fish_color_history_current --bold
+set fish_color_host normal
+set fish_color_host_remote yellow
+set fish_color_match --background=brblue
+set fish_color_normal normal
+set fish_color_operator "#fe8019"
+set fish_color_param "#ebdbb2"
+set fish_color_quote "#b8bb26"
+set fish_color_redirection "#d3869b"
+set fish_color_search_match bryellow --background=brblack
+set fish_color_selection white --bold --background=brblack
+set fish_color_status red
+set fish_color_user brgreen
+set fish_color_valid_path --underline
+set fish_pager_color_completion normal
+set fish_pager_color_description "#8ec07c" yellow
+set fish_pager_color_prefix white --bold --underline
+set fish_pager_color_progress brwhite --background=cyan
