@@ -21,10 +21,6 @@ omf install colored-man-pages
 omf install gitstatus
 omf install pj
 
-omf reload
-
 fish_update_completions
-
-exec fish
 
 tide configure
