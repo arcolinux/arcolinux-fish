@@ -98,14 +98,14 @@ if not set -q -g fish_user_abbreviations
   set -gx fish_user_abbreviations
 end
 
-if type -f fortune >/dev/null
-  set -l fortune "fortune -a"
-  if type -f lolcat >/dev/null
-    set fortune "$fortune | lolcat"
-  end
-  eval $fortune
-  echo
-end
+#if type -f fortune >/dev/null
+#  set -l fortune "fortune -a"
+#  if type -f lolcat >/dev/null
+#    set fortune "$fortune | lolcat"
+#  end
+#  eval $fortune
+#  echo
+#end
 
 if which tree >/dev/null
     function l1;  tree --dirsfirst -ChFL 1 $argv; end
