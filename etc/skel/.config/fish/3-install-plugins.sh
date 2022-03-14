@@ -11,6 +11,13 @@
 #
 ##################################################################################################################
 
+echo "Change first to fish after installing fish"
+echo "sudo pacman -S fish arcolinux-fish-git"
+echo
+echo "tofish"
+echo "is the alias to change to fish and then logout"
+echo "Type it in a terminal"
+
 # fisher install IlanCosman/tide@v5
 
 omf install https://github.com/jhillyerd/plugin-git
@@ -23,6 +30,6 @@ omf install pj
 
 fish_update_completions
 
-exec fish
+reload
 
 tide configure

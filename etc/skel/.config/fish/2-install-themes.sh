@@ -11,4 +11,11 @@
 #
 ##################################################################################################################
 
+echo "Change first to fish after installing fish"
+echo "sudo pacman -S fish arcolinux-fish-git"
+echo
+echo "tofish"
+echo "is the alias to change to fish and then logout"
+echo "Type it in a terminal"
+
 omf install lambda

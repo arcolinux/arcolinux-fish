@@ -12,8 +12,10 @@
 ##################################################################################################################
 
 echo "Change first to fish after installing fish"
-echo "sudo pacman -S fish"
+echo "sudo pacman -S fish arcolinux-fish-git"
+echo
 echo "tofish"
 echo "is the alias to change to fish and then logout"
+echo "Type it in a terminal"
 echo
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
