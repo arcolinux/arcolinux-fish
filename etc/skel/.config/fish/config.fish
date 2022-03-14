@@ -237,8 +237,7 @@ alias userlist 'cut -d: -f1 /etc/passwd'
 alias merge 'xrdb -merge ~/.Xresources'
 
 # Aliases for software managment
-# pacman or pm
-alias pacman 'sudo pacman --color auto'
+# pacman
 alias update 'sudo pacman -Syyu'
 
 # paru as aur helper - updates everything
