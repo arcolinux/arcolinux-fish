@@ -23,4 +23,6 @@ omf install pj
 
 fish_update_completions
 
+exec fish
+
 tide configure
