@@ -14,9 +14,7 @@
 echo "We assume you have installed these packages"
 echo "sudo pacman -S fish arcolinux-fish-git"
 echo
-echo "Now change to fish with our alias - type it in a terminal"
-echo
-echo "tofish"
+echo "We assume you are now on fish and have omf installed"
 echo
 
 omf install lambda
