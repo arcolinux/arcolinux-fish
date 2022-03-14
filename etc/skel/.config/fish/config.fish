@@ -496,4 +496,4 @@ set fish_pager_color_description "#B3A06D" yellow
 set fish_pager_color_prefix normal --bold underline
 set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
-
+set fish_color_search_match --background="#60AEFF"
