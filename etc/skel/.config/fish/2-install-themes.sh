@@ -18,3 +18,4 @@ echo "We assume you are now on fish and have omf installed"
 echo
 
 omf install lambda
+omf install gitstatus
