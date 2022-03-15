@@ -15,6 +15,8 @@
 # https://github.com/oh-my-fish/oh-my-fish
 # https://github.com/danhper/fundle
 
+#set VIRTUAL_ENV_DISABLE_PROMPT "1"
+
 if not status --is-interactive
   exit
 end
@@ -116,6 +118,15 @@ end
 
 
 ### FUNCTIONS ###
+# Fish command history
+function history
+    builtin history --show-time='%F %T '
+end
+
+# Make a backup file
+function backup --argument filename
+    cp $filename $filename.bak
+end
 
 # recently installed packages
 function ripp --argument length -d "List the last n (100) packages installed"
@@ -205,6 +216,9 @@ alias upal="paru -Syu --noconfirm"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
+
+# Color output of ip
+alias ip="ip -color"
 
 #readable output
 alias df="df -h"
