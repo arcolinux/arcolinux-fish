@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/fish
 #set -e
 ##################################################################################################################
 # Author 	: Erik Dubois
@@ -15,31 +15,44 @@
 #   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
 #
 ##################################################################################################################
+#tput setaf 0 = black 
+#tput setaf 1 = red 
+#tput setaf 2 = green
+#tput setaf 3 = yellow 
+#tput setaf 4 = dark blue 
+#tput setaf 5 = purple
+#tput setaf 6 = cyan 
+#tput setaf 7 = gray 
+#tput setaf 8 = light blue
+##################################################################################################################
+
+# from script 2
+
+omf remove gitstatus
+omf remove lambda
+
+# from script 3
+
+omf remove git
+omf remove tide
+omf remove fish-color-scheme-switcher
+omf remove fzf
+omf remove colored-man-pages
+omf remove pj
+
+# remove omf
+curl -L http://get.oh-my.fish > install
+fish install --uninstall --yes
+
+exit 1
+rm -rf ~/.config/omf
+rm -rf ~/.local/share/omf
+rm -rf ~/.cache/omf
 
 echo
 tput setaf 3
 echo "################################################################"
-echo "################### Installing oh my fish"
-echo "################################################################"
-tput sgr0
-echo
-
-echo "We assume you have installed these packages"
-echo "sudo pacman -S fish arcolinux-fish-git"
-echo
-echo "Now change to fish with our alias - type it in a terminal"
-echo
-echo "tofish"
-echo
-[ -d $HOME"/.local/share/omf-backup" ] && rm -rf $HOME"/.local/share/omf-backup"
-[ -d $HOME"/.local/share/omf" ] && mv -f $HOME"/.local/share/omf" $HOME"/.local/share/omf-backup"
-
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-
-echo
-tput setaf 3
-echo "################################################################"
-echo "################### Oh my fish installed"
+echo "################### Oh my fish removed"
 echo "################################################################"
 tput sgr0
 echo
