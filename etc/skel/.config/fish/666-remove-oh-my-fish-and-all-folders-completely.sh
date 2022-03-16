@@ -43,6 +43,7 @@ omf remove pj
 # remove omf
 curl -L http://get.oh-my.fish > install
 fish install --uninstall --yes
+rm ~/.config/fish/install
 
 exit 1
 rm -rf ~/.config/omf
@@ -53,6 +54,7 @@ echo
 tput setaf 3
 echo "################################################################"
 echo "################### Oh my fish removed"
+echo "################### Remove the fish_variables file if need be"
 echo "################################################################"
 tput sgr0
 echo
