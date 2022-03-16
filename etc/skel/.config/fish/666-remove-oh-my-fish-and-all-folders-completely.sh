@@ -34,18 +34,19 @@ omf remove lambda
 # from script 3
 
 omf remove git
-omf remove tide
-omf remove fish-color-scheme-switcher
 omf remove fzf
 omf remove colored-man-pages
 omf remove pj
+
+# from script 4
+
+omf remove tide
 
 # remove omf
 curl -L http://get.oh-my.fish > install
 fish install --uninstall --yes
 rm ~/.config/fish/install
 
-exit 1
 rm -rf ~/.config/omf
 rm -rf ~/.local/share/omf
 rm -rf ~/.cache/omf
