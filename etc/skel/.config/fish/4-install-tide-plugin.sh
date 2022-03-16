@@ -29,7 +29,8 @@
 echo
 tput setaf 3
 echo "################################################################"
-echo "################### Installing the plugins"
+echo "################### Installing the tide plugin"
+echo "################### Conflicts with other themes"
 echo "################################################################"
 tput sgr0
 echo
@@ -40,18 +41,18 @@ echo
 echo "We assume you are now on fish and have omf installed"
 echo
 
-omf install https://github.com/jhillyerd/plugin-git
-omf install https://github.com/h-matsuo/fish-color-scheme-switcher
-omf install fzf
-omf install colored-man-pages
-omf install pj
-
-fish_update_completions
+omf install https://github.com/IlanCosman/tide.git
 
 echo
 tput setaf 3
 echo "################################################################"
-echo "################### Plugins installed"
+echo "################### Plugin installed"
+echo
+echo "################### Now you can configure the tide plugin"
+echo
+echo "################### Type in a terminal:"
+echo "################### reload"
+echo "################### tide configure"
 echo "################################################################"
 tput sgr0
 echo
