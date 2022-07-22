@@ -102,7 +102,7 @@ end
 #  echo
 #end
 
-if which tree >/dev/null
+if test tree >/dev/null
     function l1;  tree --dirsfirst -ChFL 1 $argv; end
     function l2;  tree --dirsfirst -ChFL 2 $argv; end
     function l3;  tree --dirsfirst -ChFL 3 $argv; end
