@@ -206,11 +206,10 @@ alias spqo='sudo pacman -Qo'
 alias spsii='sudo pacman -Sii'
 
 # show the list of packages that need this package - depends mpv as example
-function_depends
-    search=$(echo "$1")
+function function_depends
+    set search $argv[1]
     sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
 end
-
 
 alias depends='function_depends'
 
