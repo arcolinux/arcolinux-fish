@@ -478,7 +478,9 @@ alias xd="ls /usr/share/xsessions"
 alias xdw="ls /usr/share/wayland-sessions"
 
 #wayland aliases
-alias wsimplescreenrecorder="wf-recorder -a"
+alias wsimplescreen="wf-recorder -a"
+alias wsimplescreenrecorder="wf-recorder -a -c h264_vaapi -C aac -d /dev/dri/renderD128 --file=recording.mp4"
+
 
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
