@@ -489,6 +489,9 @@ alias wsimplescreenrecorder="wf-recorder -a -c h264_vaapi -C aac -d /dev/dri/ren
 #give a list of the kernels installed
 alias kernels="ls /usr/lib/modules"
 
+#am I on grub or systemd-boot
+alias boot="sudo bootctl status | grep Product"
+
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
 alias btrfsli="sudo btrfs su li / -t"
