@@ -499,7 +499,7 @@ alias kernel="ls /usr/lib/modules"
 alias kernels="ls /usr/lib/modules"
 
 #am I on grub or systemd-boot
-alias boot="sudo bootctl status | grep Product"
+alias boot="sudo bootctl status | grep Product | awk '{print \$2}'"
 
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
