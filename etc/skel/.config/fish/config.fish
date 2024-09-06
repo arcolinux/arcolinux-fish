@@ -329,16 +329,16 @@ alias kp="killall polybar"
 # quickly kill picom
 alias kpi="killall picom"
 
-#hardware info --short
+# hardware info --short
 alias hw="hwinfo --short"
 
-#fastfetch --short
+# fastfetch --short
 alias ff="fastfetch"
 
-#audio check pulseaudio or pipewire
+# audio check pulseaudio or pipewire
 alias audio="pactl info | grep 'Server Name'"
 
-#skip integrity check
+# skip integrity check
 alias paruskip="paru -S --mflags --skipinteg"
 alias yayskip="yay -S --mflags --skipinteg"
 alias trizenskip="trizen -S --skipinteg"
