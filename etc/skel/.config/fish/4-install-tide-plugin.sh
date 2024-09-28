@@ -38,18 +38,9 @@ echo
 echo "We assume you have installed these packages"
 echo "sudo pacman -S fish arcolinux-fish-git"
 echo
-echo "We assume you are now on fish and have omf installed"
-echo "or have fisher installed"
-echo
 
-if [ -f ~/.config/omf/channel ]; then 
-    omf install https://github.com/IlanCosman/tide.git
-else
-    if [ -f /usr/share/fish/vendor_completions.d/fisher.fish ]; then 
-        fisher install IlanCosman/tide@v6
-    fi
-fi
-
+sudo pacman -S --noconfirm fisher
+fisher install IlanCosman/tide@v6
 
 echo
 tput setaf 3
