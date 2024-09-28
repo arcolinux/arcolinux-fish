@@ -41,7 +41,13 @@ echo
 echo "We assume you are now on fish and have omf installed"
 echo
 
-omf install https://github.com/IlanCosman/tide.git
+if [ -f /usr/bin/omf ]; then 
+	omf install https://github.com/IlanCosman/tide.git
+fi
+
+if [ -f /usr/share/fish/vendor_completions.d/fisher.fish ]; then 
+	fisher install IlanCosman/tide@v6
+fi
 
 echo
 tput setaf 3
