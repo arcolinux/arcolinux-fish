@@ -43,11 +43,13 @@ echo "or have fisher installed"
 echo
 
 if [ -f ~/.config/omf/channel ]; then 
-	omf install https://github.com/IlanCosman/tide.git
+    omf install https://github.com/IlanCosman/tide.git
 else
-	[ -f /usr/share/fish/vendor_completions.d/fisher.fish ]; then 
-	fisher install IlanCosman/tide@v6
+    if [ -f /usr/share/fish/vendor_completions.d/fisher.fish ]; then 
+        fisher install IlanCosman/tide@v6
+    fi
 fi
+
 
 echo
 tput setaf 3
