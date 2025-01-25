@@ -442,7 +442,8 @@ alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
 alias nenvironment="sudo $EDITOR /etc/environment"
 alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
-alias nalacritty="nano /home/$USER/.config/alacritty/alacritty.toml"
+alias nalacritty="$EDITOR /home/$USER/.config/alacritty/alacritty.toml"
+alias nemptty="sudo $EDITOR /etc/emptty/conf"
 
 #removing packages
 alias rvariety="arcolinux-remove-variety"
